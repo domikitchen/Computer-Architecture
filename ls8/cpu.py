@@ -7,6 +7,18 @@ class CPU:
 
     def __init__(self):
         """Construct a new CPU."""
+        self.ram = [0] * 256
+        self.register = [0,0,0,0,0,0,0,0]
+        self.PC = 0
+        self.InTheWorks = True
+        self.HALT = 1
+        self.LDI = 130
+        self.PRN = 71
+
+    def ram_read(self, MAR):
+        return self.memory[MAR]
+    
+    def ram_write():
         pass
 
     def load(self):
@@ -62,4 +74,25 @@ class CPU:
 
     def run(self):
         """Run the CPU."""
-        pass
+        while self.InTheWorks == True:
+            if self.ram[self.PC] == self.HALT:
+                self.PC += 1
+                break
+
+            elif self.ram[self.PC] == self.LDI:
+                self.PC += 1
+                thing = self.ram[self.PC]
+                self.PC += 1
+                self.register[thing] = self.ram[self.PC]
+                self.PC += 1
+
+            elif self.ram[self.PC] == self.PRN:
+                self.PC += 1
+                thing = self.ram[self.PC]
+                print(self.register[thing])
+                self.PC += 1
+
+            else:
+                print(f'{self.ram}\n{self.register}\n{self.ram[self.PC]}\n{self.PC}')
+                print("------------------")
+                print("WhAT dID YOu DO?!?")

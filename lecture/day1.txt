@@ -1,0 +1,182 @@
+Number Bases
+------------
+
+Base 2  -binary
+Base 8  -octal
+Base 10 -decimal
+Base 16 -hexadecimal ("hex")
+Base 64 -"base 64"
+
+
+Base 10:
+    Digits 0-9
+
+  0
+  1
+  2
+  3
+  4
+  5
+  6
+  7
+  8
+  9
+ 10
+ 11
+ 12 one 10 is two 1s... 1*10 + 2*1 = 12
+ 13
+ 14
+...
+ 98
+ 99
+100
+|||
+||+----- 1s
+|+------ 10s
++------- 100s
+
+1s      = 10^0
+10s     = 10^1
+100s    = 10^2
+1000s   = 10^3
+
+
+Binary
+------
+
+0s and 1s
+
+Binary digits ("bits" for short): 0-1
+
+   0
+   1
+  10
+  11
+ 100
+ 101    one 4, one 2, zero 1s = 1*4 + 1*2 + 0*1 = 6
+ 110
+ 111
+1000
+||||
+|||+--------- 1s    -    0b1
+||+---------- 2s    -    0b10
+|+----------- 4s    -    0b100
++------------ 8s    -    0b1000
+
+1s      = 2^0
+2s      = 2^1
+4s      = 2^2
+8s      = 2^3
+16s     = 2^4
+
+binary 110 is decimal 6
+
+The number base is important when you write the number down.
+110000  binary?
+110000  decimal?
+110000  base-64?
+
+
+Writing in code
+    Prefix the number with an indicator of the base:
+
+    - 0b binary
+    - 0x hex
+    - 0o octal (very rarely used)
+
+
+
+
+  101101    binary
+ + 11010
+ -------
+ 1000111
+
+
+
+ Hex
+ ---
+ 0-9,A-for
+
+ 0
+ 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+ A
+ B
+ C
+ D
+ E
+ F
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+1A
+1B
+1C
+1D
+1E
+1F
+20
+
+ RR GG BB
+#ff 02 1d
+
+0x87 == 0b???????
+
+1 hex digit === 4 binary digits
+--
+0x   8       7
+0b  1000    0111
+
+0b10000111 == 0x87
+--
+0x    0       C         (C is 12 decimal)
+0b   0000    1100
+
+0b00001100 == 0x0C
+0b1100 == 0xC
+--
+0x  F       F           (F is 15 decimal)
+0b  1111    1111
+
+0b11111111 == 0xFF
+
+ 0xFF
+ 0b11111111
+
+ 1 one
+ 1 two
+ 1 four
+ 1 eight
+ 1 sixteen
+ 1 thirty two
+ 1 sixty four
+ 1 one hundred twenty eight
+
+ 128 + 64 + 32 + 16 + 8 + 4 + 2 + 1 = 225
+
+ F ones
+ F sixteens
+
+
+8 bits == 1 byte
+4 bits == 1 nybble
+
+00001101
+\  /
+ \/
+ the four leading zeros usually refer to a byte
