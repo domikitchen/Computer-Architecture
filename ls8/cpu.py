@@ -8,14 +8,22 @@ class CPU:
     def __init__(self):
         """Construct a new CPU."""
         self.ram = [0] * 256
-        self.register = [0,0,0,0,0,0,0,0]
+        self.register = [0] * 8
         self.PC = 0
         self.InTheWorks = True
         self.HALT = 1
         self.LDI = 130
         self.PRN = 71
         self.MUL = 162
+        self.PUSH = 69
+        self.POP = 70
+        self.CMP = 167
+        self.JEQ = 85
+        self.JNE = 86
+        self.JMP = 84
+        self.fakeStack = 7
         self.registerThing = 0
+        self.FL = "000"
 
     def ram_read(self, MAR):
         return self.memory[MAR]
@@ -131,6 +139,49 @@ class CPU:
                 num2 = self.register[self.ram[self.PC]]
                 self.alu("MUL", num1, num2)
                 self.PC += 1
+            
+            elif self.ram[self.PC] == self.PUSH:
+                self.PC += 1
+                self.register[self.fakeStack] = self.register[self.ram[self.PC]]
+                self.fakeStack -= 1
+                self.PC += 1
+
+            elif self.ram[self.PC] == self.POP:
+                self.PC += 1
+                self.fakeStack += 1
+                self.register[self.ram[self.PC]] = self.register[self.fakeStack]
+                self.PC += 1
+            
+            elif self.ram[self.PC] == self.CMP:
+                self.PC += 1
+                regA = self.register[self.ram[self.PC]]
+                self.PC += 1
+                regB = self.register[self.ram[self.PC]]
+                if regA == regB:
+                    self.FL = "001"
+                elif regA < regB:
+                    self.FL = "100"
+                elif regA > regB:
+                    self.FL = "010"
+                self.PC += 1
+
+            elif self.ram[self.PC] == self.JEQ:
+                self.PC += 1
+                if self.FL[2] == "1":
+                    self.PC = self.register[self.ram[self.PC]]
+                else:
+                    self.PC += 1
+
+            elif self.ram[self.PC] == self.JNE:
+                self.PC += 1
+                if self.FL[2] == "0":
+                    self.PC = self.register[self.ram[self.PC]]
+                else:
+                    self.PC += 1
+
+            elif self.ram[self.PC] == self.JMP:
+                self.PC += 1
+                self.PC = self.register[self.ram[self.PC]]
 
             else:
                 print(f'{self.ram}\n{self.register}\n{self.ram[self.PC]}\n{self.PC}')

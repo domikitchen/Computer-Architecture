@@ -1,0 +1,33 @@
+Subroutines
+-----------
+
+Like simple functions.
+* No function arguments.
+* No return values
+
+
+When we call a function:
+    * Push the return address on the stack
+    * Set the PC to the function address
+
+When we return:
+    * Pop the return address off the stack, store it in the PC
+
+
+def bar():
+    print("henlo again")
+    return
+
+def foo():
+    print("hi there")
+    bar()
+    print("and we're back")     # addr_2
+    bar()
+    print("and we're back again")   #addr_3
+    return
+
+foo()
+
+print("donso!")     # addr_1
+
+# Stack top -> addr_1
